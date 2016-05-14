@@ -21,10 +21,8 @@ def create_index_html():
     context = {
         'urls': urls
     }
-    #
-
-    # REVIEW!!!!!!! change tester.html
-    html = render_template('tester.html', context)
+    
+    html = render_template('student_meetings.html', context)
     return html
 
 
@@ -32,8 +30,6 @@ def main():
     html = create_index_html()
     print('content-type: text/html \n')
     print(html)
-
-########################################
 
 if __name__ == "__main__":
     main()
