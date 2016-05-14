@@ -12,20 +12,17 @@
 </center>
 
 <ol align="left">
-  <!-- REVIEW!!!!! the student url should be /cgi-bin/student-meetings.py -->
- <a href="http://google.com">Student</a> 
+ <a href="/cgi-bin/student_meetings.py">Student</a> 
  <br>
-  <!-- REVIEW!!!!! the <p> and <select> should be inside the form otherwise it won't get submitted. Also "academics" should be "academic" (singular) -->
+ <br>
+ <br>
+ <form action="/cgi-bin/academic_page.py">
  <p>Academic</p> 
- <select name="academics">
-  <option value="1">Dr. Levitt</option>
-  <option value="2">Prof. Hazelhurst</option>
-  <option value="3">Dr. Nyandoro</option>
- </select>
- <br>
- <br>
-  <!-- REVIEW!!!!!!! the academic url should be /cgi-bin/academic-page.py -->
- <form action="http://google.com">
+  <select name="academic">
+   <option value="1">Dr. Levitt</option>
+   <option value="2">Prof. Hazelhurst</option>
+   <option value="3">Dr. Nyandoro</option>
+  </select>
     <input type="submit" value="Login as academic">
  </form> 
 
