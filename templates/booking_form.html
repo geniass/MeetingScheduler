@@ -1,0 +1,9 @@
+<p>Booking a meeting with {{ lecturer_id }} on {{ date_time }}</p><br>
+
+<form action="/cgi-bin/schedule_meeting.py">
+  {% if is_student_booking %}
+    Student ID: <input type="text" name="student_id" value={{ student_id }}><br>
+  {% endif %}
+  Meeting Subject: <input type="text" name="subject" value={{ subject }}><br>
+  <input type="submit" value="Submit">
+</form>
