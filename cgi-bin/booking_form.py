@@ -5,6 +5,7 @@ import cgi
 import cgitb
 cgitb.enable()
 
+# change permissions of this file to run
 
 def populate_template(lecturer_id, date_time, is_student_booking=False):
     loader = FileSystemLoader('../templates')
