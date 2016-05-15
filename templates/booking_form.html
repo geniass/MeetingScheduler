@@ -6,6 +6,11 @@
   {% endif %}
   Meeting Subject: <input type="text" name="subject" value={{ subject }}><br>
 
+  <br>
+  <input type="radio" name="meeting_detail" value="individual" {% if not is_group_booking %}checked{% endif %}> Individual Booking</input> <input type="radio" name="meeting_detail" value="group" {% if is_group_booking %}checked{% endif %}> Group Booking </input> <br><br>
+
+  <label>Students attending: </label><input name = "attendees" type = "text" value = {{attendees}} id = "attendees"></input> <br><br>
+
   <input type="hidden" name="lecturer_id" value={{ lecturer_id }}>
   <input type="hidden" name="date_time" value={{ date_time }}>
   <input type="submit" value="Submit">
