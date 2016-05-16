@@ -9,8 +9,7 @@
   <br>
   <input type="radio" name="meeting_detail" value="individual" {% if not is_group_booking %}checked{% endif %}> Individual Booking</input> <input type="radio" name="meeting_detail" value="group" {% if is_group_booking %}checked{% endif %}> Group Booking </input> <br><br>
 
-  <!-- REVIEW!!!!! make value=string from attendees. Use jinjas "join" filter -->
-  <label>Students attending: </label><input name = "attendees" type = "text" value = {{attendees}} id = "attendees"></input> <br><br>
+  <label>Students attending: </label><input name = "attendees" type = "text" value = "{{ attendees|join('; ') }}" id = "attendees"></input> <br><br>
 
   <input type="hidden" name="lecturer_id" value={{ lecturer_id }}>
   <input type="hidden" name="date_time" value={{ date_time }}>
