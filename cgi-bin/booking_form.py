@@ -5,16 +5,12 @@ import cgi
 import cgitb
 cgitb.enable()
 
-
-# REVIEW!!!!! lets rather make attendees=[] a list then make it a string
-# in the template
-def populate_template(lecturer_id, date_time, is_student_booking=False, is_group_booking=False, attendees=''):
+def populate_template(lecturer_id, date_time, is_student_booking=False, is_group_booking=False, attendees=["547937","597609"]):
     loader = FileSystemLoader('../templates')
     env = Environment(loader=loader)
 
-    # REVIEW!!!!!!! pass attendee into the template context
     context = {"lecturer_id": lecturer_id,
-               "date_time": date_time, "subject": "sdfsf", "is_group_booking": is_group_booking}
+               "date_time": date_time, "subject": "sdfsf", "is_group_booking": is_group_booking, "attendees":attendees}
     return env.get_template("booking_form.html").render(context)
 
 if __name__ == "__main__":
