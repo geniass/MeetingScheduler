@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from jinja2 import Environment, FileSystemLoader
 import cgi
 import cgitb
- cgitb.enable()
+cgitb.enable()
 
 
 PATH = os.path.dirname(os.path.abspath(__file__))
@@ -69,14 +69,13 @@ def create_index_html(startDate):
         'time': time,
         'meeting_slot_info': weekly_data
     }
-    #
     html = render_template('calendar_template.html', context)
     return html
 
 
 def main():
     form = cgi.FieldStorage()
-    startDate = form.getfirst("startDate")
+    startDate = str(form.getfirst("startDate"))
 
     html = create_index_html(startDate)
     print("Content-type: text/html")
