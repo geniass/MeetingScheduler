@@ -16,14 +16,11 @@ def render_template(template_filename, context):
  
 def create_index_html():
     urls = ['List of Meetings', 'Bookings Management Page']
-    meeting_details = dict(date='2016-05-14', user_id='1', meeting_type='Cool Kid', year='4')
-
     context = {
-        'urls': urls,
-        'detail': meeting_details
+        'urls': urls
     }
     #
-    html = render_template('meeting_list.html', context)
+    html = render_template('lecturers_page.html', context)
     return html
  
  
