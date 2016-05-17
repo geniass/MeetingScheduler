@@ -2,9 +2,9 @@
 
 <form action="/cgi-bin/schedule_meeting.py">
   {% if is_student_booking %}
-    Student ID: <input type="text" name="student_id" value={{ student_id }}><br>
+    Student ID: <input type="text" name="student_id" value="{{ student_id }}"><br>
   {% endif %}
-  Meeting Subject: <input type="text" name="subject" value={{ subject }}><br>
+  Meeting Subject: <input type="text" name="subject" value="{{ subject }}"><br>
 
   <br>
   <input type="radio" name="meeting_detail" value="individual" {% if not is_group_booking %}checked{% endif %}> Individual Booking</input> <input type="radio" name="meeting_detail" value="group" {% if is_group_booking %}checked{% endif %}> Group Booking </input> <br><br>
