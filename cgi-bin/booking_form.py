@@ -20,6 +20,7 @@ if __name__ == "__main__":
     lecturer_id = form.getfirst("lecturer_id")
     date_time = form.getfirst("date_time")
 
+    # need to fix lecture_id and date_time to not crash if does not exist
     m = meeting.get_by_date_time(lecturer_id, date_time)
 
     ################!!!!!!!! TO DO !!!!!!!!!!!!!!!! ##########################
