@@ -53,6 +53,8 @@ class TestDB(unittest.TestCase):
         self.assertTrue(len(ms) == 2)
 
     # MEETING_STUDENT TESTS
+
+    #not testing the get method to check if meeting exists
     def test_meeting_student_save(self):
         ms = meeting_student.MeetingStudent(3, 985738)
         self.assertIsNotNone(ms.save())
