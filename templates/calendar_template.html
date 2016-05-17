@@ -1,0 +1,38 @@
+<DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Calendar Template</title>
+	</head>
+	<body>
+
+
+		<table border = "1" id = 'meetings' style="width: 100%">
+			<tr>
+				<td> Days/Time </td>
+				{% for time_slots in time -%} 
+					<td> {{time_slots}} </td>
+				{% endfor -%}
+			</tr>
+
+			{% for day in week-%}
+			<tr> 
+				<td> {{day}} </td>
+
+				{% set day_info = meeting_slot_info[day] -%}
+				{% for item in day_info -%}
+					{%  set state = item['status']-%}
+					{% if state == Busy -%}
+						<td> Busy </td>
+					{% else -%}
+						<td> <a href="{{item['link']}}">{{item['status']}}</a></td>
+					{% endif -%}
+				{% endfor -%}
+			</tr>
+			{% endfor -%}
+		</tr>
+	</table>
+
+</body>
+</html>
+
