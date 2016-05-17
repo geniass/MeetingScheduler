@@ -1,25 +1,17 @@
 #!/usr/bin/env python3
 
 import os
-import sqlite3
-#import cgi
-#import cgitb
-# cgitb.enable()
 from datetime import datetime, timedelta
 from jinja2 import Environment, FileSystemLoader
+import cgi
+import cgitb
+ cgitb.enable()
 
-# CODE REVIEW!!!!!!!!!! Delete the DB stuff
-# variables for accessing sql database
-#connection = None
-#connection = sqlite3.connect('development.db')
-#cursor = connection.cursor()
 
-# CODE REVIEW!!!!!!! move calendar_template.html into templates/ instead
-# of html/
 PATH = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_ENVIRONMENT = Environment(
     autoescape=False,
-    loader=FileSystemLoader(os.path.join(PATH, '../html')),
+    loader=FileSystemLoader(os.path.join(PATH, '../templates')),
     trim_blocks=False)
 
 
@@ -48,6 +40,7 @@ def create_index_html(startDate):
                            meeting_type='Cool Kid', year='4')
     days = requested_date(startDate)
 
+    # Dummy data for the data from the database
     meeting_data = [dict(status='Book', link='www.google.com'), dict(status='Book', link='www.google.com'), dict(status='Book', link='www.google.com'), dict(status='Book', link='www.google.com'),
                     dict(status='Book', link='www.google.com'), dict(status='Edit', link='www.google.com'), dict(
                         status='Book', link=''), dict(status='Book', link='www.google.com'),
@@ -56,8 +49,6 @@ def create_index_html(startDate):
                     dict(status='Busy', link=''), dict(status='Book', link='www.google.com'), dict(
                         status='Edit', link='www.google.com'), dict(status='Busy', link=''),
                     dict(status='Edit', link='www.google.com'), dict(status='Busy', link='')]
-
-    #meetings_info = process_data(meeting_data)
 
     weekly_data = dict()
     for j in range(7):
@@ -84,11 +75,8 @@ def create_index_html(startDate):
 
 
 def main():
-    # CODE REVIEW!!!!!!!!!! make indentation consistent please
-    # CODE REVIEW!!!!!!!!!! uncomment the cgi stuff
-        #form = cgi.FieldStorage()
-        #startDate = form.getfirst("startDate")
-    startDate = '2016-05-14'
+    form = cgi.FieldStorage()
+    startDate = form.getfirst("startDate")
 
     html = create_index_html(startDate)
     print("Content-type: text/html")
