@@ -24,7 +24,7 @@ class TestDB(unittest.TestCase):
         c.execute("DELETE FROM meetings_students")
         c.execute("INSERT INTO meetings_students VALUES(3, 6878879)")
         c.execute("INSERT INTO meetings_students VALUES(3, 8876767)")
-       # print(c.execute("select * from meetings_students").fetchall())
+
         conn.commit()
         conn.close()
 
@@ -53,11 +53,13 @@ class TestDB(unittest.TestCase):
         self.assertTrue(len(ms) == 2)
 
     # MEETING_STUDENT TESTS
-
-    #not testing the get method to check if meeting exists
     def test_meeting_student_save(self):
         ms = meeting_student.MeetingStudent(3, 985738)
         self.assertIsNotNone(ms.save())
+
+    def test_meeting_student_get(self):
+        m = meeting_student.get(3, 8876767)
+        self.assertIsNotNone(m)
 
     def test_meeting_student_get_meeting_attendees(self):
         attendees = meeting_student.get_meeting_attendees(meeting_id=3)
