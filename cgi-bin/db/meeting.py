@@ -8,7 +8,23 @@ def get(lecturer_id):
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     args = (lecturer_id,)
-    cursor.execute("SELECT * FROM meetings WHERE lecturer_id=?", args)
+    cursor.execute(
+        "SELECT * FROM meetings WHERE lecturer_id=?", args)
+    meeting = cursor.fetchone()
+
+    if not meeting:
+        return None
+
+    return Meeting(lecturer_id, meeting["datetime"], meeting['duration'], meeting["subject"])
+
+
+def get_by_date_time(lecturer_id, date_time):
+    conn = sqlite3.connect(DB_NAME)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    args = (lecturer_id, date_time)
+    cursor.execute(
+        "SELECT * FROM meetings WHERE lecturer_id=? AND datetime=?", args)
     meeting = cursor.fetchone()
 
     if not meeting:

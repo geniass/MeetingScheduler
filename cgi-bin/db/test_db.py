@@ -16,7 +16,8 @@ class TestDB(unittest.TestCase):
         c = conn.cursor()
         c.execute("DELETE FROM meetings")
         c.execute("INSERT INTO meetings VALUES(2,'2015-01-01',10,'afqweqe')")
-        c.execute("INSERT INTO meetings VALUES(3,'2015-01-01',10,'get a meeting')")
+        c.execute(
+            "INSERT INTO meetings VALUES(3,'2015-01-01T09:00',10,'get a meeting')")
         conn.commit()
         conn.close()
 
@@ -26,6 +27,12 @@ class TestDB(unittest.TestCase):
 
     def test_get_a_meeting(self):
         m = meeting.get(lecturer_id=3)
+        self.assertIsNotNone(m)
+        self.assertEqual(m.subject, "get a meeting")
+
+    def test_get_by_date_time(self):
+        m = meeting.get_by_date_time(
+            lecturer_id=3, date_time="2015-01-01T09:00")
         self.assertIsNotNone(m)
         self.assertEqual(m.subject, "get a meeting")
 

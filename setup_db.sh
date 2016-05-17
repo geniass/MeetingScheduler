@@ -2,7 +2,7 @@
 
 DEV_DB="/var/www/development.db"
 
-apt-get install sqlite
+# apt-get install sqlite
 
 sqlite3 $DEV_DB 'CREATE TABLE IF NOT EXISTS meetings_students(
     meeting_id          INTEGER NOT NULL REFERENCES meetings(id),
