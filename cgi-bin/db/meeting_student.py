@@ -1,4 +1,4 @@
-import meeting
+from . import meeting
 import sqlite3
 
 DB_NAME = "/var/www/development.db"

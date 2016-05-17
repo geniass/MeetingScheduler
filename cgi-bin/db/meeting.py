@@ -64,7 +64,6 @@ class Meeting:
         meeting = get(self.lecturer_id)
         if meeting:
             # update
-            print("update")
             cursor.execute("""UPDATE meetings
                               SET datetime=?, duration=?, subject=?
                               WHERE lecturer_id=?""",
