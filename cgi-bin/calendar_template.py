@@ -53,16 +53,13 @@ def create_index_html(lecturer_id, startDate, is_student_booking=True):
                     slot_meeting = m
                     break
 
-                ####### TODO ########
-                # get group booking from db
-
             link_str = ("/cgi-bin/booking_form.py?"
                         "lecturer_id={0}&"
                         "date_time={1}&"
-                        "student_booking={2}&"
-                        "group_booking={3}")
+                        "student_booking={2}&")
+            #"group_booking={3}")
             if not slot_meeting:
-                # not busy
+                # not busy, can book a new meeting
                 weekly_data[day].append({'status': 'Book',
                                          'link': link_str.format(
                                              lecturer_id,
@@ -71,9 +68,23 @@ def create_index_html(lecturer_id, startDate, is_student_booking=True):
                                              is_student_booking,
                                              False)})
             else:
+                # there's already a booked meeting
+                is_group_meeting = slot_meeting.is_group_meeting
                 if is_student_booking:
-                    # don't show edit
-                    weekly_data[day].append({'status': 'Busy', 'link': ''})
+                    # don't show edit, but if its a group meeting show join
+                    if is_group_meeting:
+                        # join
+                        weekly_data[day].append({'status': 'Join',
+                                                 'link': link_str.format(
+                                                     lecturer_id,
+                                                     datetime.combine(
+                                                         day, time.time())
+                                                     .strftime("%Y-%m-%dT%H:%M"),
+                                                     is_student_booking,
+                                                     is_group_meeting)})
+
+                    else:
+                        weekly_data[day].append({'status': 'Busy', 'link': ''})
                 else:
                     # show edit
                     weekly_data[day].append({'status': 'Edit',
@@ -83,7 +94,7 @@ def create_index_html(lecturer_id, startDate, is_student_booking=True):
                                                      day, time.time())
                                                  .strftime("%Y-%m-%dT%H:%M"),
                                                  is_student_booking,
-                                                 False)})
+                                                 is_group_meeting)})
 
             slot = time.strftime("%H:%M")
             time = time + timedelta(minutes=30)

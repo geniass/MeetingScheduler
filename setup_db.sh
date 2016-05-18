@@ -13,7 +13,8 @@ sqlite3 $DEV_DB 'CREATE TABLE IF NOT EXISTS meetings(
     lecturer_id         TEXT NOT NULL,
     datetime            TIMESTAMP NOT NULL,
     duration            INTEGER NOT NULL,
-    subject             TEXT
+    subject             TEXT,
+    is_group_meeting    INTEGER NOT NULL
 );'
 
 

@@ -8,22 +8,23 @@
 <p>Booking a meeting with {{ lecturer_id }} on {{ date_time }}</p><br>
 
 <form action="/cgi-bin/schedule_meeting.py">
+  Meeting Subject: <input type="text" name="subject" value="{{ subject }}"><br>
   {% if is_student_booking %}
-    Student ID: <input type="text" name="student_id" value="{{ student_id }}"><br>
-    Meeting Subject: <input type="text" name="subject" value="{{ subject }}" {% if is_group_booking %} disabled = true {% endif %}><br>
-  {% else %}
-     Meeting Subject: <input type="text" name="subject" value="{{ subject }}"><br>
-
+  Student ID: <input type="text" name="student_id" value="{{ student_id }}">
+  <input type="hidden" name="group_booking" value="{{is_group_booking}}">
   <br>
-  <input type="radio" name="meeting_detail" value="individual" {% if not is_group_booking %}checked{% endif %}> Individual Booking</input> <input type="radio" name="meeting_detail" value="group" {% if is_group_booking %}checked{% endif %}> Group Booking </input> <br><br>
+  {% else %}
+
+  <input type="radio" name="group_booking" value="False" {% if not is_group_booking %}checked{% endif %}> Individual Booking</input> <input type="radio" name="group_booking" value="True" {% if is_group_booking %}checked{% endif %}> Group Booking </input> <br><br>
 
   <label>Students attending: </label><input name = "attendees" type = "text" value = "{{ attendees|join('; ') }}" id = "attendees"></input> <br><br>
 
   {% endif %}
  
 
-  <input type="hidden" name="lecturer_id" value={{ lecturer_id }}>
-  <input type="hidden" name="date_time" value={{ date_time }}>
+  <input type="hidden" name="student_booking" value="{{is_student_booking}}">
+  <input type="hidden" name="lecturer_id" value="{{ lecturer_id }}">
+  <input type="hidden" name="date_time" value="{{ date_time }}">
   <input type="submit" value="Submit">
 </form>
 </body>

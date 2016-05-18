@@ -17,11 +17,12 @@ class TestDB(unittest.TestCase):
         conn = sqlite3.connect(url)
         c = conn.cursor()
         c.execute("DELETE FROM meetings")
-        c.execute("INSERT INTO meetings VALUES(2,'2015-01-01T11:00',10,'afqweqe')")
         c.execute(
-            "INSERT INTO meetings VALUES(3,'2015-01-01T09:00',10,'get a meeting')")
+            "INSERT INTO meetings VALUES(2,'2015-01-01T11:00',10,'afqweqe', 0)")
         c.execute(
-            "INSERT INTO meetings VALUES(3,'2015-01-01T13:00',10,'another meeting')")
+            "INSERT INTO meetings VALUES(3,'2015-01-01T09:00',10,'get a meeting', 0)")
+        c.execute(
+            "INSERT INTO meetings VALUES(3,'2015-01-01T13:00',10,'another meeting', 0)")
 
         c.execute("DELETE FROM meetings_students")
         c.execute("INSERT INTO meetings_students VALUES(2, 6878879)")

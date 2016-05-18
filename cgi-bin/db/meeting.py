@@ -11,8 +11,7 @@ def get(lecturer_id):
     cursor.execute(
         "SELECT ROWID,* FROM meetings WHERE lecturer_id=?", args)
 
-    return [Meeting(lecturer_id, m["datetime"], m['duration'], m["subject"],
-                    meeting_id=m["rowid"]) for m in cursor.fetchall()]
+    return [from_meeting_row(m) for m in cursor.fetchall()]
 
 
 def get_by_date_time(lecturer_id, date_time):
@@ -28,8 +27,7 @@ def get_by_date_time(lecturer_id, date_time):
     if not meeting:
         return None
 
-    return Meeting(lecturer_id, meeting["datetime"], meeting['duration'],
-                   meeting["subject"], meeting_id=meeting["rowid"])
+    return from_meeting_row(meeting)
 
 
 def get_all_on(lecturer_id, date):
@@ -40,16 +38,21 @@ def get_all_on(lecturer_id, date):
     cursor.execute(
         "SELECT ROWID,* FROM meetings WHERE lecturer_id=? AND date(datetime,'start of day') == date(?,'start of day')", args)
 
-    return [Meeting(m["lecturer_id"], m["datetime"], m['duration'], m["subject"],
-                    meeting_id=m["rowid"])
-            for m in cursor.fetchall()]
+    return [from_meeting_row(m) for m in cursor.fetchall()]
+
+
+def from_meeting_row(row):
+    is_group_meeting = True if row['is_group_meeting'] == 1 else False
+    return Meeting(row['lecturer_id'], row['datetime'], row['duration'],
+                   row['subject'], meeting_id=row['rowid'],
+                   is_group_meeting=is_group_meeting)
 
 
 class Meeting:
 
     # duration is in minutes
     def __init__(self, lecturer_id, date_time, duration, subject="",
-                 meeting_id=-1):
+                 meeting_id=-1, is_group_meeting=False):
         self.conn = sqlite3.connect(DB_NAME)
         self.conn.row_factory = sqlite3.Row
 
@@ -58,6 +61,7 @@ class Meeting:
         self.date_time = date_time
         self.duration = duration
         self.subject = subject
+        self.is_group_meeting = is_group_meeting
 
     def save(self):
         cursor = self.conn.cursor()
@@ -65,16 +69,18 @@ class Meeting:
         if meeting:
             # update
             cursor.execute("""UPDATE meetings
-                              SET datetime=?, duration=?, subject=?
+                              SET datetime=?,duration=?,subject=?,is_group_meeting=?
                               WHERE lecturer_id=?""",
                            (self.date_time, self.duration, self.subject,
+                            0 if not self.is_group_meeting else 1,
                             self.lecturer_id))
         else:
             # insert
-            cursor.execute("""INSERT INTO meetings(lecturer_id, datetime, duration, subject)
-                              VALUES (?,?,?,?)""",
+            cursor.execute("""INSERT INTO meetings(lecturer_id, datetime, duration, 
+                              subject, is_group_meeting)
+                              VALUES (?,?,?,?,?)""",
                            (self.lecturer_id, self.date_time, self.duration,
-                            self.subject))
+                            self.subject, 0 if not self.is_group_meeting else 1))
 
         self.conn.commit()
         return self

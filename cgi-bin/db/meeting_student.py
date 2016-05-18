@@ -59,9 +59,13 @@ class MeetingStudent:
     def save(self):
         cursor = self.conn.cursor()
         # insert
-        cursor.execute("""INSERT INTO meetings_students(meeting_id,student_id)
-                            VALUES (?,?)""",
-                       (self.meeting.meeting_id, self.student_id))
+        try:
+            cursor.execute("""INSERT INTO meetings_students(meeting_id,student_id)
+                                VALUES (?,?)""",
+                           (self.meeting.meeting_id, self.student_id))
+        except sqlite3.IntegrityError:
+            # already exists
+            pass
 
         self.conn.commit()
         return self
