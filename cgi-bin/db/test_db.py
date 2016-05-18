@@ -17,7 +17,7 @@ class TestDB(unittest.TestCase):
         conn = sqlite3.connect(url)
         c = conn.cursor()
         c.execute("DELETE FROM meetings")
-        c.execute("INSERT INTO meetings VALUES(2,'2015-01-01',10,'afqweqe')")
+        c.execute("INSERT INTO meetings VALUES(2,'2015-01-01T11:00',10,'afqweqe')")
         c.execute(
             "INSERT INTO meetings VALUES(3,'2015-01-01T09:00',10,'get a meeting')")
 
@@ -49,8 +49,8 @@ class TestDB(unittest.TestCase):
         self.assertIsNone(meeting.get(lecturer_id=2))
 
     def test_meeting_get_all_on(self):
-        ms = meeting.get_all_on("2015-01-01")
-        self.assertTrue(len(ms) == 2)
+        ms = meeting.get_all_on(2, "2015-01-01")
+        self.assertTrue(len(ms) == 1)
 
     # MEETING_STUDENT TESTS
     def test_meeting_student_save(self):
