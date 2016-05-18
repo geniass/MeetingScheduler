@@ -61,7 +61,7 @@ class Meeting:
 
     def save(self):
         cursor = self.conn.cursor()
-        meeting = get(self.lecturer_id)
+        meeting = get_by_date_time(self.lecturer_id, self.date_time)
         if meeting:
             # update
             cursor.execute("""UPDATE meetings
