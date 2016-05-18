@@ -57,17 +57,17 @@ $(function() {
 </center>
 <ol align="left">
 {% set counter = 0 -%}
-<form action = "/">
+<form action = "/cgi-bin/calendar_template.py">
     <div align="left">
     	<p> Please select the lecturer: </p>
-        <select name="mydropdown">
+        <select name="lecturer_id">
         	{% for url in urls -%}
                <option value = {{loop.index}} >{{ url }}</option>
 
             {% endfor -%}  
         </select>
         <p> Please select the desired week of meeting: </p>
-        <input class="week-picker" type = "text" id = "startDate" name = "startDate">
+        <input class="week-picker" type = "text" id = "startDate" name = "start_date">
         <br /><br />
      <input type="submit" />
 </form>
