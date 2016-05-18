@@ -2,8 +2,8 @@ import unittest
 import os
 import sqlite3
 
-import meeting
-import meeting_student
+from db import meeting
+from db import meeting_student
 
 
 class TestDB(unittest.TestCase):
@@ -33,6 +33,16 @@ class TestDB(unittest.TestCase):
     def test_meeting_save_new_and_update(self):
         m = meeting.Meeting(1, "2015-01-02", 10, "sdvvds")
         self.assertIsNotNone(m.save())
+
+    def test_meeting_save_inserts_if_new_meeting_for_same_lecturer(self):
+        m1 = meeting.Meeting(10, "2016-01-01T08:00", 10, "meeting1")
+        m1.save()
+        m2 = meeting.Meeting(10, "2016-01-01T13:00", 10, "meeting2")
+        m2.save()
+        self.assertEqual(meeting.get_by_date_time(
+            10, "2016-01-01T08:00").subject, "meeting1")
+        self.assertEqual(meeting.get_by_date_time(
+            10, "2016-01-01T13:00").subject, "meeting2")
 
     def test_meeting_get_for_lecturer(self):
         ms = meeting.get(lecturer_id=3)
