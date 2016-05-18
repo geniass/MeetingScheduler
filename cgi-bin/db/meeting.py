@@ -32,14 +32,13 @@ def get_by_date_time(lecturer_id, date_time):
                    meeting["subject"], meeting_id=meeting["rowid"])
 
 
-def get_all_on(date):
+def get_all_on(lecturer_id, date):
     conn = sqlite3.connect(DB_NAME)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    args = (date,)
-    cursor.execute("""SELECT ROWID, * FROM meetings
-                   WHERE date(datetime, 'start of day') == date(?, 'start of day')""",
-                   args)
+    args = (lecturer_id, date)
+    cursor.execute(
+        "SELECT ROWID,* FROM meetings WHERE lecturer_id=? AND date(datetime,'start of day') == date(?,'start of day')", args)
 
     return [Meeting(m["lecturer_id"], m["datetime"], m['duration'], m["subject"],
                     meeting_id=m["rowid"])

@@ -22,10 +22,10 @@
 				{% set day_info = meeting_slot_info[day] -%}
 				{% for item in day_info -%}
 					{%  set state = item['status']-%}
-					{% if state == Busy -%}
-						<td> Busy </td>
+					{% if not item['link'] -%}
+						<td>{{item['status']}}</td>
 					{% else -%}
-						<td> <a href="{{item['link']}}">{{item['status']}}</a></td>
+						<td><a href="{{item['link']}}">{{item['status']}}</a></td>
 					{% endif -%}
 				{% endfor -%}
 			</tr>

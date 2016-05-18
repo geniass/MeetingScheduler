@@ -17,11 +17,11 @@ class TestDB(unittest.TestCase):
         conn = sqlite3.connect(url)
         c = conn.cursor()
         c.execute("DELETE FROM meetings")
-        c.execute("INSERT INTO meetings VALUES(3,'2014-01-01',10,'afqweqe')")
+        c.execute("INSERT INTO meetings VALUES(2,'2015-01-01T11:00',10,'afqweqe')")
         c.execute(
             "INSERT INTO meetings VALUES(3,'2015-01-01T09:00',10,'get a meeting')")
         c.execute(
-            "INSERT INTO meetings VALUES(3,'2015-01-01',10,'another meeting')")
+            "INSERT INTO meetings VALUES(3,'2015-01-01T13:00',10,'another meeting')")
 
         c.execute("DELETE FROM meetings_students")
         c.execute("INSERT INTO meetings_students VALUES(2, 6878879)")
@@ -36,7 +36,7 @@ class TestDB(unittest.TestCase):
 
     def test_meeting_get_for_lecturer(self):
         ms = meeting.get(lecturer_id=3)
-        self.assertEqual(len(ms), 3)
+        self.assertEqual(len(ms), 2)
 
     def test_meeting_get_by_date_time(self):
         m = meeting.get_by_date_time(
@@ -45,15 +45,17 @@ class TestDB(unittest.TestCase):
         self.assertEqual(m.subject, "get a meeting")
 
     def test_meeting_delete(self):
-        m = meeting.get_by_date_time(3, '2014-01-01')
+        m = meeting.Meeting(1, "2014-01-01", 10, "sdvvds")
+        m.save()
+        m = meeting.get_by_date_time(1, '2014-01-01')
         self.assertIsNone(m.delete())
-        self.assertIsNone(meeting.get_by_date_time(3, '2014-01-01'))
+        self.assertIsNone(meeting.get_by_date_time(1, '2014-01-01'))
 
     def test_meeting_get_all_on(self):
-        ms = meeting.get_all_on("2015-01-01")
-        self.assertEqual(len(ms), 2)
+        ms = meeting.get_all_on(2, "2015-01-01")
+        self.assertEqual(len(ms), 1)
 
-    # MEETING_STUDENT TESTS
+# MEETING_STUDENT TESTS
     def test_meeting_student_save(self):
         m = meeting.Meeting(3, '2015-01-01T09:00', 10)
         ms = meeting_student.MeetingStudent(m, 985738)
