@@ -1,0 +1,37 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage{amsmath,amsthm, graphicx}
+\usepackage{verbatim}
+
+%\usepackage{enumitem}
+%\setlist{nolistsep}
+
+\usepackage[margin=1.5in,footskip=0.25in,top=0.7in]{geometry}
+
+\title{ELEN4010 - Software Development III\\Meeting Scheduling System\\Code Review Guide}
+\author{Ari Croock (718005)\\Kanaka Babshet (678851)\\Alice Yang (597609)\\Daniel Weinberg (547937)}
+\date{\today}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\begin{document}
+	\maketitle
+	\section{Purpose}
+	This document describes the procedure that all developers should follow when making changes to the source code. Code reviews should be performed before code is accepted into production so that obvious problems can be identified by another developer early.
+	
+	\section{Procedure}
+	A code review must be performed at the end of every sprint. Every developer's changes must be reviewed by another developer who will be assigned at the beginning of each sprint.
+	
+	Code reviews will be performed as follows:
+	\begin{enumerate}
+		\item Developer writes code and commits to a personal branch on the remote repository
+		\item At the end of the sprint, the assigned reviewer pulls the developer's personal branch
+		\item The reviewer reads over the changes and then tries to run the code in their personal development environment
+		\item The reviewer makes relevant comments in the source at the location where changes need to be made. This allows the developer to quickly identify where they need to make changes
+		\item The reviewer commits their comments to the personal branch with a descriptive commit message
+		\item The developer pulls the branch and fixes any problems that the reviewer found
+		\item The developer commits the changes to the personal branch
+		\item If the reviewer approves of the changes, the personal branch can be merged into master so tests can be run on the new code
+	\end{enumerate}
+	
+\end{document}
