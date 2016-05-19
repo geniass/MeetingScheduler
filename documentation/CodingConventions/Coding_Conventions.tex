@@ -1,0 +1,125 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\title{ELEN4010 - Software Development Project \\ Coding Conventions}
+\author{Kanaka Babshet (678851) and Ari Croock (718005)\\Daniel Weinberg (547937) and Alice Yang (597609)}
+\date{2016/04/19}
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\newpage
+	\noindent
+	\section{Introduction}
+	Coding conventions are the methods and standards by which certain programs are coded. This document lists the coding conventions implemented for the development of a meeting scheduling system for the ELEN4010 Software Development project. 
+\section{Python}
+Version: Python 3.5.1
+\subsection{Readability}
+\begin{itemize}
+	\item Tabs are used for indentation 
+	\item Python3 disallows the mixed usage of tabs and spaces
+	\item Continuation lines align wrapped elements vertically 
+	\item The maximum line length is 79 characters, and the window width is 80 in order to avoid wrapping
+	\item The line length of doc strings and comments are limited to 72 characters
+	\item Long lines are wrapped by placing expressions in brackets
+	\item Top-level function and class definitions are surrounded with two blank lines
+	\item Method definitions inside a class are surrounded by a single blank line
+	\item White space is only inserted after punctuation, and not before
+	\item Lines should not end with semicolons
+\end{itemize}
+
+\subsection{Maintainability}
+
+\begin{itemize}
+	\item Class definitions are written using camelCase
+	\item All other names are written using snake\_case
+	\item Constants are defined in all capital letters
+	\item There are no global variables
+	\item \textit{self} is used for the first argument to instance methods
+	\item Files are closed explicitly on program exit
+	\item Imported scripts should not execute the core functionality of the code
+	\item All code in the core implements the UTF-8 character encoding, without an encoding declaration 
+	\item All imports must be done on individual lines and at the beginning of the script
+\end{itemize}
+
+\subsection{Documentation}
+\begin{itemize}
+	\item Short comments on one line succinctly describe functionality 
+	\item Block comments are indented to the same level as the code that follows them
+	\item Space must be inserted before the comment specifier
+	\item Any comment that exists is kept up to date with changing code 
+\end{itemize}
+\section{HTML}
+\subsection{Readability}
+\begin{itemize}
+	\item Indentations are tabbed
+	\item New lines are used for every block
+	\item Line lengths are limited to 80 characters
+\end{itemize}
+\subsection{Maintainability}
+\begin{itemize}
+	\item No style sheets are used to prevent complexity
+	\item All code in the core implements the UTF-8 character encoding, without an encoding declaration
+	\item  Clear and precise names for IDs and classes are used
+	\item Names provided are lower case due to XML being case sensitive
+	\item All non empty elements have a closing tag
+	\item Consistent cases are used 
+\end{itemize}
+\subsection{Documentation}
+\begin{itemize}
+	\item Few comments are utilized to describe the HTML code
+	\item The primary description relies on well defined variables, IDs and tags
+	\item Short comments that exist are written on one line
+	\item A space must be inserted before the comment specifier
+	\item Any comment that exists is kept up to date with changing code 
+\end{itemize}
+\section{Javascript}
+\subsection{Readability}
+\begin{itemize}
+	\item Javascript code is embedded in the HTML because the code is specific to a session
+	\item Every statement begins in line vertically with the current indentation
+	\item A space follows punctuation
+	\item The maximum line length is 79 characters, and the window width is 80 in order to avoid wrapping
+	\item Indentations are done using tabs
+
+\end{itemize}
+\subsection{Maintainability}
+\begin{itemize}
+	\item All variables and functions should be declared before use
+	\item Naming is done using camel case
+\end{itemize}
+\subsection{Documentation}
+\begin{itemize}
+	\item Short comments that exist are written on one line
+	\item A space must be inserted before the comment specifier
+	\item Any comment that exists is kept up to date with changing code 
+	\item Inline comments are preferred to block commenting
+\end{itemize}
+
+\section{SQL}
+\subsection{Readability}
+\begin{itemize}
+	\item Tabs are avoided
+	\item The maximum line length is 79 characters, and the window width is 80 in order to avoid wrapping
+	\item Indents are 4 spaces for column names and table wide constraint definitions
+	\item Only one statement is utilized on each line
+	\item White space is implemented after punctuation
+	\item Column definitions must be separated by 1 blank line
+\end{itemize}
+\subsection{Maintainability}
+\begin{itemize}
+	\item All SQL keywords are in upper case
+	\item snake\_case is used for all function and variable names, and camelCase is not utilised
+\end{itemize}
+\subsection{Documentation}
+\begin{itemize}
+	\item All comments use the SQL standard double-dash method (- -)
+	\item Does not make use of c-style commenting to enable cross platform support
+	\item Column comments are used optionally only when they are useful
+\end{itemize}
+
+\section{Conclusion}
+In conclusion, these coding conventions have the ultimate goal of improving the readability, maintainability and general understanding of the source code. It provides a standard for other programmers to grasp the algorithms used in order to improve the current code.
+
+
+\end{document}

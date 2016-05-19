@@ -1,0 +1,101 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\title{ELEN4010 - Software Development Project\\Testing Framework}
+\author{Kanaka Babshet (678851) and Ari Croock (718005)\\Daniel Weinberg (547937) and Alice Yang (597609)}
+\date{2016/04/19}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\noindent
+\section{Introduction}
+Fundamental features are implemented across every webpage, and need to be tested on every microlevel. Therefore, all tests are written from the bottom up, and the system success is dependent on the passing all of these tests. 
+
+\section{Testing Layout}
+The front end has been tested using Selenium, a suite of tools to automate web browsers across various platforms. 
+\section{Homepage}
+The first test ensures that the welcome page can be loaded. The welcome page allows a user to specify whether they are a student or an academic. Should the user be an academic, they can choose their identity from a dropdown menu. 
+\section{Student and Academic pages}
+\subsection{Student}
+Tests are done to ensure that the correct student page is loaded upon selecting the "Student" option on the homepage. Another test verifies that the student can then submit the academic to book a meeting with, along with the desired week of meeting. 
+\subsection{Academic}
+Tests are done to ensure that the correct lecturer page is loaded upon submitting the academic identifier. Another test verifies that the academic can then submit the desired week of meeting. 
+
+\section{Booking Meetings}
+The loading of the academic's schedule is tested. 
+\subsection{Student}
+Once the student has selected the preferred meeting time slot in the academic's week schedule, they are directed to a booking form where they can provide their student ID and meeting subject. 
+\subsection{Academic}
+Once the academic has selected the preferred meeting time slot in their week schedule, they are directed to a booking form where they can provide the meeting subject, meeting type (group or individual), and the student(s) that will be attending the meeting. The academic also has the ability to specify whether a meeting session can be allocated to a group. Once this has happened, the calendar displays "Join" to the students so that they are able to join an existing meeting. The subject of the meeting however, remains the same.
+\\\\
+Tests are done to ensure that all the correct elements required for filling the meeting information are available on both booking forms, and that all this information can be submitted successfully.
+
+\section{Meeting Success}
+Once the meeting has been successfully booked (from either the student or the academic), the user can choose to return to the homepage. A simple test is conducted to ensure that the homepage is correctly loaded upon clicking that link. 
+\newpage
+\section{Test Information}
+\begin{table}[!htb]
+\centering
+\caption{Table demonstrating the test plan and desired outcomes}
+\label{Table:testPlan}
+\begin{tabular}{|c|l|l|}
+	\hline
+	\textbf{Test No.} & \multicolumn{1}{c|}{\textbf{Test}} & \multicolumn{1}{c|}{\textbf{Expected Outcome}} \\ \hline
+	1 & \begin{tabular}[c]{@{}l@{}}The correct title is given to the\\ welcome page\end{tabular} & \begin{tabular}[c]{@{}l@{}}It is named \\ "Welcome Page"\end{tabular} \\ \hline
+	2 & \begin{tabular}[c]{@{}l@{}}The student page can be accessed\\ from the welcome page\end{tabular} & \begin{tabular}[c]{@{}l@{}}The user is directed to \\ the student page\end{tabular} \\ \hline
+	3 & \begin{tabular}[c]{@{}l@{}}The correct title is given to the \\ student's page\end{tabular} & \begin{tabular}[c]{@{}l@{}}It is named \\ "Student's Page"\end{tabular} \\ \hline
+	4 & \begin{tabular}[c]{@{}l@{}}All correct elements are found \\ on the student's page\end{tabular} & \begin{tabular}[c]{@{}l@{}}Find the lecturer ID field, \\ and date field for desired week\end{tabular} \\ \hline
+	5 & \begin{tabular}[c]{@{}l@{}}The information on the student's\\ page can be submitted correctly\end{tabular} & \begin{tabular}[c]{@{}l@{}}The user is directed to \\ the lecturer's schedule \\ for the week\end{tabular} \\ \hline
+	6 & \begin{tabular}[c]{@{}l@{}}The lecturer page can be access\\ from the welcome page\end{tabular} & \begin{tabular}[c]{@{}l@{}}The user is directed to\\ the specific lecturer's page\end{tabular} \\ \hline
+	7 & \begin{tabular}[c]{@{}l@{}}The correct title is given to the \\ lecturer's page\end{tabular} & \begin{tabular}[c]{@{}l@{}}It is named \\ "Lecturer's Page"\end{tabular} \\ \hline
+	8 & \begin{tabular}[c]{@{}l@{}}All correct elements are found\\ on the lecturer's page\end{tabular} & \begin{tabular}[c]{@{}l@{}}Find the date field for \\ desired week\end{tabular} \\ \hline
+	9 & \begin{tabular}[c]{@{}l@{}}The information on the lecturer's\\ page can be submitted correctly\end{tabular} & \begin{tabular}[c]{@{}l@{}}The user is directed to \\ the lecturer's schedule\\ for the week\end{tabular} \\ \hline
+	10 & \begin{tabular}[c]{@{}l@{}}The correct elements exist on\\ the student booking form\end{tabular} & \begin{tabular}[c]{@{}l@{}}Find the student ID field and \\ the meeting subject field\end{tabular} \\ \hline
+	11 & Submit the student booking form & \begin{tabular}[c]{@{}l@{}}The user is notified of a successful\\ meeting on a new page\end{tabular} \\ \hline
+	12 & Submit the lecturer booking form & \begin{tabular}[c]{@{}l@{}}The user is notified of a successful\\ meeting on a new page\end{tabular} \\ \hline
+	13 & \begin{tabular}[c]{@{}l@{}}Allow returning to welcome page\\ if meeting is successful\end{tabular} & \begin{tabular}[c]{@{}l@{}}The user is redirected to the welcome \\ page if they click on a link after \\ the meeting has been booked\end{tabular} \\ \hline
+	14 & \begin{tabular}[c]{@{}l@{}}Allow Academic to specify a group\\ booking slot\end{tabular} & A group meeting slot is created \\ \hline
+	15 & \begin{tabular}[c]{@{}l@{}}Allow students to join meetings\\ where academic has specified \\ a group meeting\end{tabular} & \begin{tabular}[c]{@{}l@{}}Calendar replaces "Book" text with \\ "Join" text for students view\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+\newpage
+
+\section{Acceptance Tests}
+\noindent
+The acceptance tests listed in Table~\ref{table:acceptanceTests} assume the completion of the following preconditioned tests:
+\begin{itemize}
+	\item Test that the webpage is running 
+	\item Test that the calendar is successfully integrated
+	\item Test that academics and students can access the webpage
+	\item Test that a student can select an academic to meet with 
+	\item Test that the student can successfully enter meeting information
+	\item Test that an academic can view their schedule
+	\item Test that the student can view current timeslots booked by themselves
+	\item Test that both students and academics can book meetings
+	\item Test that the system can store all necessary booking information from the students
+\end{itemize}
+\begin{table}[!htb]
+	\caption{Table detailing the acceptance tests to be run}
+	\label{table:acceptanceTests}
+	\begin{tabular}{|c|l|}
+		\hline
+		\textbf{\begin{tabular}[c]{@{}c@{}}Test \\ No.\end{tabular}} & \textbf{Acceptance Requirement} \\ \hline
+		1 & \begin{tabular}[c]{@{}l@{}}\textbf{Given} that an academic wants to view a schedule\\ \textbf{When} they open the webpage\\ \textbf{Then} ensure that the calendar is visible\end{tabular}\\ \hline
+		2 & \begin{tabular}[c]{@{}l@{}}\textbf{Given} that a student requires a meeting \\ \textbf{When} they do not access the scheduling system\\ \textbf{Then} ensure that the academic can book meetings directly onto the system\end{tabular} \\ \hline
+		3 & \begin{tabular}[c]{@{}l@{}}\textbf{Given} that a student requires a meeting\\ \textbf{When} they have access to the scheduling system\\ \textbf{Then} ensure that they can successfully book a meeting\end{tabular} \\ \hline
+		4 & \begin{tabular}[c]{@{}l@{}}\textbf{Given} that an academic needs to allocate free timeslots\\ \textbf{When} they have access to the scheduling system\\ \textbf{Then} ensure that they can successfully specify free time\end{tabular} \\ \hline
+		5 & \begin{tabular}[c]{@{}l@{}}\textbf{Given} that a student requires  a meeting\\ \textbf{When} there is already a meeting booked in that slot \\ \textbf{Then} ensure that the student has the\\option of requesting to join the meeting\end{tabular} \\ \hline
+		6 & \begin{tabular}[c]{@{}l@{}}\textbf{Given} that the student needs to cancel a timeslot \\ \textbf{When} he can no longer attend a meeting\\ \textbf{Then} ensure that the specified timeslot is available again\end{tabular} \\ \hline
+		7 & \begin{tabular}[c]{@{}l@{}}\textbf{Given} that an academic needs to specify recurring meetings \\ \textbf{When} a student is required to meet an academic periodically\\ \textbf{Then} ensure time intervals and frequency can be specified upon booking \\meetings\end{tabular} \\ \hline
+		8 & \begin{tabular}[c]{@{}l@{}}\textbf{Given} that an academic would like to keep record \\ \textbf{When} meetings have occured \\ \textbf{Then} ensure that the system can generate corresponding reports\end{tabular}\\ \hline
+	\end{tabular}
+\end{table}
+\newpage
+All acceptance tests will be implemented as user tests. 
+\section{Conclusion}
+The testing framework explains the most efficient and robust method of ensuring the functionality of the code. As mentioned earlier, the most comprehensive way to test the code is to run user tests as they have the ability to fully cover the extent of the system functionality from the perspective of the potential consumer. The system is considered successful if all the tests written pass.
+
+
+\end{document}

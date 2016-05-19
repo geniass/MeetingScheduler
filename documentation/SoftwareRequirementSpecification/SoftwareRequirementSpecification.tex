@@ -1,0 +1,284 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage{amsmath,amsthm, graphicx}
+\usepackage{verbatim}
+
+\usepackage{enumitem}
+\setlist{nolistsep}
+
+\usepackage[margin=0.6in,footskip=0.25in]{geometry}
+
+%\usepackage{titlesec}
+
+%\titleclass{\subsubsubsection}{straight}[\subsection]
+%
+%\newcounter{subsubsubsection}[subsubsection]
+%\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+%\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
+%
+%\titleformat{\subsubsubsection}
+%{\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+%\titlespacing*{\subsubsubsection}
+%{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+%
+%\def\toclevel@subsubsubsection{4}
+%\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+
+\title{ELEN4010 - Software Development III\\Meeting Scheduling System\\Software Requirement Specification}
+\author{Ari Croock (718005)\\Kanaka Babshet (678851)\\Alice Yang (597609)\\Daniel Weinberg (547937)}
+\date{\today}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\begin{document}
+	\maketitle
+	%\section{Introduction}
+	\section{Purpose}
+	This document details the system requirements specification (SRS) for an online meeting scheduling system for students and academics, commissioned by the School of Electrical and Information Engineering. The project aims to improve the meeting scheduling process by reducing the manual communication (emails) required to agree upon a meeting time.
+	
+	\section{Project Scope}
+	\subsection{Basic Scope}
+	The system will at a minimum allow students to select an academic with whom they would like to meet and view the academic's schedule so that a suitable time can be chosen. New meetings can only be booked during the academic's free calendar time. However a student can request to join an existing meeting. Each meeting has additional details associated with it, such as meeting duration, the type of meeting and meeting details.
+	
+	The academic (the administrator) must be able to view their schedule and manually book meetings, bypassing the scheduling system. Additionally, the administrator should be able to specify times when they are available, which could be fetched from their Google calender. Administrators should be able to edit their own schedules, while students cannot.
+	
+	The basic scope is required for a Minimum Viable Product (MVP) in order to show that the system will provide some value to the School.
+	
+	\subsection{Extended Scope}
+	Once the basic system scope has been implemented, various additional features will be developed, such as: being able to reschedule meetings, create waiting lists when desired time slots are not available, scheduling rules and integrating with Google Calender.
+	
+	\section{Project Overview}
+	\subsection{Assumptions}
+	\begin{itemize}
+		\item All meeting requesters are members of the School of Electrical and Information Engineering
+		\item All meeting requests are valid, i.e., a student will not book  a meeting for a course in which he is not enrolled
+		\item Meetings will run according to the meeting schedule
+		\item Academics will not change their free time after a meeting has been scheduled
+		\item All meetings will take place in the lecturer's office
+		\item Adequate storage is available to run the system for the foreseeable future
+	\end{itemize}
+	
+	\subsection{Constraints}
+	\begin{itemize}
+		\item No dedicated server-side web development frameworks may be used
+		\item Python must be used as the server-side scripting language
+		\item The Apache Web Server must be used
+		\item The shared Git repository on the provided server must be used
+	\end{itemize}
+
+	
+	
+	\section{System Features}
+	
+	\subsection{High Level User Stories (Epics)}
+	\begin{enumerate}
+		\item \textbf{View a schedule: }
+		An academic can view his own schedule on a calender
+		\item \textbf{Book a meeting bypassing the scheduling system: }
+		An academic can book meetings directly in case a student does not make use of the online scheduling system
+		\item \textbf{Book a meeting with an academic: }
+		Students can request to meet when an academic is available, and can set details about the meeting
+		\item \textbf{Allocate free time for meetings: }
+		An academic can select time slots when he is available to meet
+		\item \textbf{Join an existing meeting: }
+		Students can join an existing meeting if this is allowed by the academic
+		\item \textbf{Cancel a meeting: }
+		Students can cancel a meeting such that the time slot becomes clear
+		\item \textbf{Set meetings to recur: }
+		An academic can set certain meetings to repeat over a certain period
+		\item \textbf{View reports of time spent on meetings: }
+		An academic can view reports summarising time spent in meetings and with whom
+	\end{enumerate}
+
+	\subsection{Low Level User Stories}
+	\begin{itemize}
+		\item \textbf{Book a meeting with an academic: }
+		\begin{itemize}
+			\item A student must select an academic to meet with
+			\item A student must enter his name and student number, the meeting subject and meeting duration
+		\end{itemize}
+		\item \textbf{Allocate free time for meetings: }
+		\begin{itemize}
+			\item An academic can set periods of time when he is available to meet
+			\item (An academic can set recurring periods of time when he is available to meet)
+			\item (An academic can set periods of free time to repeat so that they don't need to enter the same periods multiple times)
+		\end{itemize}
+		\item \textbf{View reports of time spent on meetings: }
+		\begin{itemize}
+			\item The academic can set the time period of the report so they can view meeting summaries over that period
+			\item The academic can filter by type of meeting so that they can view a summary of a particular type of meeting
+		\end{itemize}
+	\end{itemize}
+	
+	\subsection{Use Cases for Primary Features}
+	\begin{itemize}
+		\item \textbf{Book a meeting with an academic: } See Table~\ref{tab:bookUseCase}
+		\item \textbf{Allocate free time for meetings: } See Table~\ref{tab:freeTimeUseCase}
+		\item \textbf{View reports of time spent on meetings: }
+	\end{itemize}
+	\begin{table}[]
+		\centering%\vspace{-3cm}
+		\caption{Table illustrating the details of the use case for the booking of a meeting with an academic}
+		\label{tab:bookUseCase}
+		\begin{tabular}{|p{3cm}| p{10.5cm} |}
+			\hline
+			\textbf{Use Case} & \textbf{Book a meeting with an academic}\\
+			\hline
+			\hline
+			Description & The purpose of this feature is to enable users within the faculty to book a meeting with a specific academic\\
+			\hline
+			Primary Actor & Student or academic\\
+			\hline
+			Scope & School of Electrical and Information Engineering \\
+			\hline
+			Level & User goal \\
+			\hline
+			Stakeholders and Interests & \begin{enumerate}
+				\item Student - wants to book an appointment with an academic
+				\item Academic - wants to book an appointment with another academic or allocate time within which they are available
+				\item University - wants to view all booked appointments
+				\end{enumerate}\\
+				\hline
+				Precondition& The user is registered on the system and is on the required webpage\\
+				\hline
+				Minimal Guarantee& The student will be able to determine if a selected timeslot is available or not\\
+				\hline
+				Success Guarantee & The academic, student, and school administration can view that the academic was available for discussion within the selected timeslot and the meeting has therefore been booked\\
+				\hline
+				Main Success Scenario& \begin{enumerate}
+					\item User opens the webpage
+					\item User searches for the specific academic with whom the meeting is desired
+					\item User checks the free time allocated by the academic
+					\item User selects the desired free timeslot for a meeting
+					\item The request is approved and the meeting is booked
+					\end{enumerate}\\
+					\hline
+					Extensions & The user is not available during the free times allocated by the academic. Renegotiate meeting time\\
+					\hline
+					Variations & User may contact the academic directly (for example via email or SMS) in order to request a meeting and the academic therefore directly accesses the system and books the meeting for the user\\
+					\hline
+					Schedule &  Due date : Release 1.0\\
+					\hline
+					Open Issues &  \begin{itemize}
+						\item What if the academic does not allocate any free time?
+						\item What if the student requires an urgent meeting?
+						\item What if an academic gets multiple meeting requests at the same time? 
+						\end{itemize}\\
+						\hline
+						\end{tabular}
+						\end{table}			
+	\begin{table}[t]
+			\centering
+			\caption{Table showing the use case for allocating free time for students to book meetings}
+			\label{tab:freeTimeUseCase}
+			\begin{tabular}{| p{45mm} | p{10cm} |}
+				\hline
+				\textbf{Use Case} & \textbf{Allocate Free Time for meetings} \\
+				\hline \hline
+				Description &  The goal behind the allocation of free times by the academic is to provide the students with an indication of when they are able to schedule meetings. \\
+				\hline	
+				\textbf{Characteristic Information} & \\
+				\hline
+				Primary Actors & Academic staff members \\
+				\hline
+				Scope & School of Electrical and Information Engineering\\
+				\hline
+				Level & User goal \\
+				\hline
+				Stakeholders and Interests & Academic Staff - wants to be able to specify free time for students to schedule meetings. \\ & Students - want to be able to book meetings with an academic by seeing their free time schedule \\
+				\hline
+				Precondition & Students and Academic already have access to the booking system \\
+				\hline
+				Minimal Guarantee & No minimal guarantees as the system either functions in its entirety or not at all.\\
+				\hline
+				Success Guarantee & Academic can specify free time slots and students are able to view the free time schedule \\
+				\hline
+				\textbf{Main Success Scenario} & 1/ Academic logs into the system \\
+				& 2/ Academic access calender view \\
+				& 3/ Academic specifies free time slots for students to book meetings \\
+				& 4/ Students can view the academic's free time on the system \\
+				\hline	
+				\textbf{Extensions} & 1/ If for whatever reason, the free time allocated is invalid, the academic is notified \\
+				\hline
+				\textbf{Variations} & Academic can fully specify the duration of the meetings available if only set periods are allowed\\
+				\hline
+				\textbf{Related Information} & \textit{Priority}: Top\\
+				& \textit{Performance Target}: 2 minutes for academic to allocate free time and for system to update the calender\\
+				& \textit{Frequency}: Relatively infrequent but is depending on how often the lecturer's schedule changes \\
+				& \textit{Superordinate Use Cases}: \\
+				& \textit{Subordinate Use Cases}: \\
+				& \textit{Channel to primary actor}: Web application \\
+				& \textit{Secondary actors}: \\
+				\hline
+				\textbf{Schedule} 	& \textit{Due Date}: Release 1.0 \\
+				\hline 
+				\textbf{Open Issues} & What if academic does not allocate any free time slots\\
+				\hline
+				
+				\end{tabular}
+				\end{table}
+	
+	\begin{table}[t]
+		\vspace{-3cm}
+		\centering
+		\caption{Table showing the use case for viewing the reports for the meeting summaries}
+		\begin{tabular}{| c | p{10cm} |}
+			\hline
+			Use Case & Trigger Switches \\
+			\hline \hline	
+			Description & The goal behind the report for the meeting summaries is to give a brief description of the time that has been spent by the academics for meetings with various students for a specified period.  \\
+			\hline
+			Actors & Academic staff members\\
+			\hline
+			Scope & School of Electrical and Informational Engineering\\
+			\hline
+			Level & User goal \\
+			\hline
+			Stakeholders and Interests & The academic - wants to view the compressed format of the meetings for a specified period. \\
+			\hline
+			& The head of school - wants to brief summaries of the academics meetings to ensure that the students and academics are communicating aside from lecture times.\\
+			\hline
+			Precondition & The academic must be registered as an Electrical (Information) Engineering staff member.\\
+			\hline
+			& The academic must have their own calender open. \\
+			\hline
+			Minimal Guarantee & The system generates a report with the basic information in the calender, regardless whether a specified period is given or not. \\
+			\hline
+			Success Guarantee & The system generates a compressed form of the academics meetings, in which it is displayed to the academic through the platform.\\
+			\hline
+			Main Success Scenario & 
+			\begin{enumerate}
+				\item Academic opens calender and selects the summary report option
+				\item The system prompts the user to enter a time period that the academic would like a summary for
+				\item The academic enters the dates for the desired period
+				\item The system exacts data from the given time period
+				\item The system places the extracted data into a simple format that summarises the meetings
+				\item The system displays the summarised meetings to the academic through the same platform
+			\end{enumerate}
+			\\ 
+			\hline
+			Extensions & 1.a. Academic is unable to open the calender due to bad internet connection: \\
+			& Open the calender at a later stage when internet connection is available\\
+			& 2.a. System unresponsive and does not prompt for user input: \\
+			& Academic must resubmit request \\
+			& 3.a. Academic submits the wrong period dates \\
+			& generate report and then allow user to resubmit the period \\
+			& 4.a. System is unable to exact information: \\
+			& Generate error message to both academic and system administrator\\
+			\hline
+			Variations & Given that the system is heavily reliant on the database of the system there is no variations\\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\section{External Interface Requirements}
+
+	
+	\section{Other Non-Functional Requirements}
+	
+
+	\section{Testing}
+	\subsection{Acceptance Tests}
+	
+	
+\end{document}
