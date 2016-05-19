@@ -25,7 +25,6 @@ def create_index_html():
     html = render_template('student_meetings.html', context)
     return html
 
-
 def main():
     html = create_index_html()
     print('content-type: text/html \n')
